@@ -6,15 +6,16 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
-export interface Component{
-
+export interface component{
+  component:any,
+  path:string
 }
 
-const PrivateRoute = ({component: Component, ...rest }) => {
-
+const PrivateRoute = (component: component,{ ...rest }) => {
+  console.log(component)
   // Add your own authentication on the below line.
   const isLoggedIn = false
-  console.log(isLoggedIn)
+  const Component = component.component
   return (
     <Route
       {...rest}
@@ -22,7 +23,7 @@ const PrivateRoute = ({component: Component, ...rest }) => {
         isLoggedIn ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+          <Redirect to={{ pathname: '/login' }} />
         )
       }
     />
